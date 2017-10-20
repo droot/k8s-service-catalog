@@ -1,7 +1,8 @@
 # Service Catalog Tutorial
 
+==========================
 
-In this tutorial, we will walkthrough the steps required to connect [a sample PubSub application](https://github.com/apelisse/sc-pubsub) to GCP pubsub service using Service Catalog. This tutorial assumes that you have installed Service Catalog in your Kubernetes cluster and added a GCP Service Broker in it.
+In this tutorial, we will walkthrough the steps required to connect [a sample PubSub application](https://github.com/apelisse/sc-pubsub) to GCP pubsub service using Service Catalog. This tutorial assumes that you have installed Service Catalog in your Kubernetes cluster and added a GCP Service Broker in it. If you are looking for instructions to install Service Catalog in your Kubernetes cluster, follow the instructions [here](https://github.com/GoogleCloudPlatform/k8s-service-catalog#installation).
 
 In this tutorial, we will accomplish the following tasks:
 
@@ -17,6 +18,7 @@ In this tutorial, we will accomplish the following tasks:
 
 ## Discover ServiceBrokers
 
+==========================
 
 Before consuming GCP services using service catalog, lets ensure we have a GCP broker added and ready.
 
@@ -33,6 +35,7 @@ Before consuming GCP services using service catalog, lets ensure we have a GCP b
 
 ## Discover services
 
+====================
 
 Once you add a GCP Service Broker, Service Catalog will fetch the details of GCP services from GCP broker. We can query Service Catalog to discover available services and their plans as shown below.
 
@@ -49,6 +52,7 @@ Once you add a GCP Service Broker, Service Catalog will fetch the details of GCP
 
 ## Provisioning a service instance
 
+==================================
 
 Our sample app publishes messages on a PubSub topic, so we need to provision a topic first. Given below is an example config for provisioning
 PubSub topic. Source code for the sample app can be found [at](https://github.com/apelisse/sc-pubsub).
@@ -89,6 +93,7 @@ kubectl get serviceinstances -n gcp-pubsub-app -o yaml
 
 ## Creating Service Binding
 
+===========================
 
 We need GCP service account credentials to consume GCP services. Assuming you have downloaded the JSON key for the GCP service account for the sample app, you can store the service account credentials in a secret in Kubernetes using following steps.
 
@@ -170,6 +175,7 @@ z02212a73-b45f-4567-8d55-e93c7aaa5989-topic
 
 ## Using Service Binding in PubSub app
 
+======================================
 
 Here is a deployment config for the PubSub app that consumes the Service Binding created in the previous step by using the Secret `gcp-pubsub-credentials` created as result of Service Binding.
 
@@ -241,6 +247,7 @@ echo      ClusterIP   10.51.251.89   <none>        80/TCP    52s
 
 ## Testing the app
 
+==================
 
 For testing the app, first we will create a subscription on the topic using `gcloud` commands so that we can read messages on that topic.
 Then we will perform a simple test by publishing a message using the sample app and reading the message using `gcloud` command.
